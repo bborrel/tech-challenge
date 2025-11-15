@@ -88,7 +88,8 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "phpcs": "./vendor/bin/php-cs-fixer fix src -v"
+        "phpcs": "./vendor/bin/php-cs-fixer fix src -v",
+        "phpstan": "./vendor/bin/phpstan analyse"
     },
     "conflict": {
         "symfony/symfony": "*"
