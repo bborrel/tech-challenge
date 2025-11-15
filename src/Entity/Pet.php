@@ -26,14 +26,14 @@ class Pet
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $date_of_birth = null;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $date_of_birth = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $approximate_age = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $date_of_age_approximation = null;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $date_of_age_approximation = null;
 
     #[ORM\Column(enumType: Sex::class)]
     private ?Sex $sex = null;
@@ -79,12 +79,12 @@ class Pet
         return $this;
     }
 
-    public function getDateOfBirth(): ?\DateTime
+    public function getDateOfBirth(): ?\DateTimeImmutable
     {
         return $this->date_of_birth;
     }
 
-    public function setDateOfBirth(?\DateTime $date_of_birth): static
+    public function setDateOfBirth(?\DateTimeImmutable $date_of_birth): static
     {
         $this->date_of_birth = $date_of_birth;
 
@@ -103,12 +103,12 @@ class Pet
         return $this;
     }
 
-    public function getDateOfAgeApproximation(): ?\DateTime
+    public function getDateOfAgeApproximation(): ?\DateTimeImmutable
     {
         return $this->date_of_age_approximation;
     }
 
-    public function setDateOfAgeApproximation(?\DateTime $date_of_age_approximation): static
+    public function setDateOfAgeApproximation(?\DateTimeImmutable $date_of_age_approximation): static
     {
         $this->date_of_age_approximation = $date_of_age_approximation;
 
