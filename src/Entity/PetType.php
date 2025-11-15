@@ -26,9 +26,16 @@ class PetType
     #[ORM\OneToMany(targetEntity: PetBreed::class, mappedBy: 'type')]
     private Collection $petBreeds;
 
+    /**
+     * @var Collection<int, Pet>
+     */
+    #[ORM\OneToMany(targetEntity: Pet::class, mappedBy: 'type')]
+    private Collection $pets;
+
     public function __construct()
     {
         $this->petBreeds = new ArrayCollection();
+        $this->pets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,6 +79,36 @@ class PetType
             // set the owning side to null (unless already changed)
             if ($petBreed->getType() === $this) {
                 $petBreed->setType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pet>
+     */
+    public function getPets(): Collection
+    {
+        return $this->pets;
+    }
+
+    public function addPet(Pet $pet): static
+    {
+        if (!$this->pets->contains($pet)) {
+            $this->pets->add($pet);
+            $pet->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removePet(Pet $pet): static
+    {
+        if ($this->pets->removeElement($pet)) {
+            // set the owning side to null (unless already changed)
+            if ($pet->getType() === $this) {
+                $pet->setType(null);
             }
         }
 
