@@ -89,7 +89,8 @@
             "@auto-scripts"
         ],
         "phpcs": "./vendor/bin/php-cs-fixer fix src -v",
-        "phpstan": "./vendor/bin/phpstan analyse"
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "psalm": "./vendor/bin/psalm"
     },
     "conflict": {
         "symfony/symfony": "*"
