@@ -30,6 +30,9 @@ class PetBreed
     #[ORM\OneToMany(targetEntity: Pet::class, mappedBy: 'breed')]
     private Collection $pets;
 
+    #[ORM\Column]
+    private ?bool $is_dangerous = null;
+
     public function __construct()
     {
         $this->pets = new ArrayCollection();
@@ -90,6 +93,18 @@ class PetBreed
                 $pet->setBreed(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDangerous(): ?bool
+    {
+        return $this->is_dangerous;
+    }
+
+    public function setIsDangerous(bool $is_dangerous): static
+    {
+        $this->is_dangerous = $is_dangerous;
 
         return $this;
     }
