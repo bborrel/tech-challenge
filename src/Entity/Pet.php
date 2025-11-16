@@ -128,9 +128,12 @@ class Pet
     }
 
     /**
-     * Return pet's age from date_of_birth if known, otherwise from actualised approximate_age.
+     * Return pet's age depending on available data:
+     * - date_of_birth if known,
+     * - otherwise from actualised approximate_age.
+     * - otherwise null
      */
-    public function getAge(?\DateTimeImmutable $currentDate): float
+    public function getAge(?\DateTimeImmutable $currentDate): ?float
     {
         if (null === $currentDate) {
             $currentDate = new \DateTimeImmutable();
@@ -142,8 +145,12 @@ class Pet
             return $ageInterval->y + ($ageInterval->m / 12) + ($ageInterval->d / 365);
         }
 
-        $ageInterval = $currentDate->diff($this->date_of_age_approximation);
+        if (null !== $this->approximate_age && null !== $this->date_of_age_approximation) {
+            $ageInterval = $currentDate->diff($this->date_of_age_approximation);
 
-        return $this->approximate_age + $ageInterval->y + ($ageInterval->m / 12) + ($ageInterval->d / 365);
+            return $this->approximate_age + $ageInterval->y + ($ageInterval->m / 12) + ($ageInterval->d / 365);
+        }
+
+        return null;
     }
 }

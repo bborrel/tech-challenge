@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class PetTest extends TestCase
 {
-    public function testGetAgeWithDateOfBirth(): void
+    public function testGetAgeWhenDateOfBirth(): void
     {
         // Arrange
         $pet = new Pet();
@@ -23,7 +23,7 @@ class PetTest extends TestCase
         $this->assertEquals(5.9, round($age, 1));
     }
 
-    public function testGetAgeWithAgeApproximatedSameDate(): void
+    public function testGetAgeWhenAgeApproximatedSameDate(): void
     {
         // Arrange
         $pet = new Pet();
@@ -39,7 +39,7 @@ class PetTest extends TestCase
         $this->assertEquals(3.5, round($age, 1));
     }
 
-    public function testGetAgeWithAgeApproximatedEarlierDate(): void
+    public function testGetAgeWhenAgeApproximatedEarlierDate(): void
     {
         // Arrange
         $pet = new Pet();
@@ -53,5 +53,21 @@ class PetTest extends TestCase
 
         // Assert
         $this->assertEquals(3.0, round($age, 1));
+    }
+
+    public function testGetAgeWhenNoAgeData(): void
+    {
+        // Arrange
+        $pet = new Pet();
+        $pet->setDateOfBirth(null);
+        $pet->setApproximateAge(null);
+        $pet->setDateOfAgeApproximation(null);
+        $currentDate = new \DateTimeImmutable('2025-11-15');
+
+        // Act
+        $age = $pet->getAge($currentDate);
+
+        // Assert
+        $this->assertNull($age);
     }
 }
