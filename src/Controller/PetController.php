@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pet;
 use App\Form\PetType;
 use App\Repository\PetRepository;
+use App\ViewModel\PetViewModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,13 @@ final class PetController extends AbstractController
     #[Route(name: 'app_pet_index', methods: ['GET'])]
     public function index(PetRepository $petRepository): Response
     {
+        $pets = array_map(
+            fn (Pet $pet) => PetViewModel::fromEntity($pet),
+            $petRepository->findAll()
+        );
+
         return $this->render('pet/index.html.twig', [
-            'pets' => $petRepository->findAll(),
+            'pets' => $pets,
         ]);
     }
 

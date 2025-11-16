@@ -3,41 +3,46 @@
 {% block title %}Pet index{% endblock %}
 
 {% block body %}
-    <h1>Pet index</h1>
+    <h1 class="text-2xl font-bold text-white mb-6">Pet index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date_of_birth</th>
-                <th>Approximate_age</th>
-                <th>Date_of_age_approximation</th>
-                <th>Sex</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for pet in pets %}
-            <tr>
-                <td>{{ pet.id }}</td>
-                <td>{{ pet.name }}</td>
-                <td>{{ pet.dateOfBirth ? pet.dateOfBirth|date('Y-m-d') : '' }}</td>
-                <td>{{ pet.approximateAge }}</td>
-                <td>{{ pet.dateOfAgeApproximation ? pet.dateOfAgeApproximation|date('Y-m-d') : '' }}</td>
-                <td>{{ pet.sex.value }}</td>
-                <td>
-                    <a href="{{ path('app_pet_show', {'id': pet.id}) }}">show</a>
-                    <a href="{{ path('app_pet_edit', {'id': pet.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <a href="{{ path('app_pet_new') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Create new</a>
 
-    <a href="{{ path('app_pet_new') }}">Create new</a>
+    <div class="overflow-x-auto bg-gray-800 rounded-lg shadow overflow-y-auto relative mt-4">
+        <table class="border-collapse table-auto w-full whitespace-no-wrap bg-gray-800 table-striped relative">
+            {% set th_class = 'bg-gray-700 sticky top-0 border-b border-gray-600 px-6 py-2 text-gray-200 font-bold tracking-wider uppercase text-xs' %}
+            {% set td_class = 'border-dashed border-t border-gray-600 px-6 py-3 group-hover:bg-gray-600 transition-colors' %}
+            {% set btn_class = 'px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700' %}
+            <thead>
+                <tr>
+                    <th class="{{ th_class }}">Name</th>
+                    <th class="{{ th_class }}">Type</th>
+                    <th class="{{ th_class }}">Breed</th>
+                    <th class="{{ th_class }}">Age</th>
+                    <th class="{{ th_class }}">Sex</th>
+                    <th class="{{ th_class }}">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pet in pets %}
+                <tr class="group {% if loop.index is even %}bg-gray-700{% endif %}">
+                    <td class="{{ td_class }}">{{ pet.name }}</td>
+                    <td class="{{ td_class }}">{{ pet.type.name }}</td>
+                    <td class="{{ td_class }}">{{ pet.breed.name }}</td>
+                    <td class="{{ td_class }}">{{ pet.age|format_age(short: true) }}</td>
+                    <td class="{{ td_class }}">{{ pet.sex.value }}</td>
+                    <td class="{{ td_class }}">
+                        <div class="flex flex-col md:flex-row gap-1 justify-left">
+                            <a href="{{ path('app_pet_show', {'id': pet.id}) }}" class="{{ btn_class }}">Show</a>
+                            <a href="{{ path('app_pet_edit', {'id': pet.id}) }}" class="{{ btn_class }}">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
