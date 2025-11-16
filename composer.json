@@ -91,7 +91,10 @@
         ],
         "phpcs": "./vendor/bin/php-cs-fixer fix src -v",
         "phpstan": "./vendor/bin/phpstan analyse",
-        "psalm": "./vendor/bin/psalm"
+        "psalm": "./vendor/bin/psalm",
+        "tailwind-build": "./bin/console tailwind:build",
+        "asset-compile": "./bin/console asset-map:compile",
+        "tailwind-watch": "./bin/console tailwind:build --watch"
     },
     "conflict": {
         "symfony/symfony": "*"
