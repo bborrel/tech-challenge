@@ -96,7 +96,8 @@
         "psalm": "./vendor/bin/psalm",
         "tailwind-build": "./bin/console tailwind:build",
         "asset-compile": "./bin/console asset-map:compile",
-        "tailwind-watch": "./bin/console tailwind:build --watch"
+        "tailwind-watch": "./bin/console tailwind:build --watch",
+        "test-unit": "php ./vendor/bin/phpunit --testdox tests/Unit"
     },
     "conflict": {
         "symfony/symfony": "*"
