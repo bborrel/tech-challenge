@@ -4,7 +4,7 @@ namespace App\ViewModel;
 
 use App\Entity\Pet;
 use App\Entity\PetType;
-use App\Entity\Sex;
+use App\Enum\Sex;
 
 final readonly class PetViewModel
 {
@@ -24,7 +24,7 @@ final readonly class PetViewModel
             id: $pet->getId(),
             name: $pet->getName(),
             type: $pet->getType(),
-            breedNames: array_map(fn($breed) => $breed->getName(), $pet->getBreeds()->toArray()),
+            breedNames: array_map(fn ($breed) => $breed->getName(), $pet->getBreeds()->toArray()),
             sex: $pet->getSex(),
             age: $pet->getAge($currentDate),
         );

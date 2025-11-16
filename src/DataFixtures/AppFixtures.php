@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Pet;
 use App\Entity\PetBreed;
 use App\Entity\PetType;
-use App\Entity\Sex;
+use App\Enum\Sex;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

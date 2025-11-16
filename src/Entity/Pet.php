@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Sex;
 use App\Repository\PetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
