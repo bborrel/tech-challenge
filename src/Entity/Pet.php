@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
@@ -20,8 +22,11 @@ class Pet
     #[ORM\JoinColumn(nullable: false)]
     private ?PetType $type = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pets')]
-    private ?PetBreed $breed = null;
+    /**
+     * @var Collection<int, PetBreed>
+     */
+    #[ORM\ManyToMany(targetEntity: PetBreed::class, inversedBy: 'pets')]
+    private Collection $breeds;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -37,6 +42,11 @@ class Pet
 
     #[ORM\Column(enumType: Sex::class)]
     private ?Sex $sex = null;
+
+    public function __construct()
+    {
+        $this->breeds = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -55,14 +65,26 @@ class Pet
         return $this;
     }
 
-    public function getBreed(): ?PetBreed
+    /**
+     * @return Collection<int, PetBreed>
+     */
+    public function getBreeds(): Collection
     {
-        return $this->breed;
+        return $this->breeds;
     }
 
-    public function setBreed(?PetBreed $breed): static
+    public function addBreed(PetBreed $breed): static
     {
-        $this->breed = $breed;
+        if (!$this->breeds->contains($breed)) {
+            $this->breeds->add($breed);
+        }
+
+        return $this;
+    }
+
+    public function removeBreed(PetBreed $breed): static
+    {
+        $this->breeds->removeElement($breed);
 
         return $this;
     }

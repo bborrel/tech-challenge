@@ -27,7 +27,7 @@ class PetBreed
     /**
      * @var Collection<int, Pet>
      */
-    #[ORM\OneToMany(targetEntity: Pet::class, mappedBy: 'breed')]
+    #[ORM\ManyToMany(targetEntity: Pet::class, mappedBy: 'breeds')]
     private Collection $pets;
 
     #[ORM\Column]
@@ -79,7 +79,7 @@ class PetBreed
     {
         if (!$this->pets->contains($pet)) {
             $this->pets->add($pet);
-            $pet->setBreed($this);
+            $pet->addBreed($this);
         }
 
         return $this;
@@ -88,10 +88,7 @@ class PetBreed
     public function removePet(Pet $pet): static
     {
         if ($this->pets->removeElement($pet)) {
-            // set the owning side to null (unless already changed)
-            if ($pet->getBreed() === $this) {
-                $pet->setBreed(null);
-            }
+            $pet->removeBreed($this);
         }
 
         return $this;

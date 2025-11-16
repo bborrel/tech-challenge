@@ -3,7 +3,6 @@
 namespace App\ViewModel;
 
 use App\Entity\Pet;
-use App\Entity\PetBreed;
 use App\Entity\PetType;
 use App\Entity\Sex;
 
@@ -13,7 +12,7 @@ final readonly class PetViewModel
         public int $id,
         public string $name,
         public PetType $type,
-        public ?PetBreed $breed,
+        public array $breedNames,
         public Sex $sex,
         public ?float $age,
     ) {
@@ -25,7 +24,7 @@ final readonly class PetViewModel
             id: $pet->getId(),
             name: $pet->getName(),
             type: $pet->getType(),
-            breed: $pet->getBreed(),
+            breedNames: array_map(fn($breed) => $breed->getName(), $pet->getBreeds()->toArray()),
             sex: $pet->getSex(),
             age: $pet->getAge($currentDate),
         );

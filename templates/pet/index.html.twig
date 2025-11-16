@@ -16,7 +16,7 @@
                 <tr>
                     <th class="{{ th_class }}">Name</th>
                     <th class="{{ th_class }}">Type</th>
-                    <th class="{{ th_class }}">Breed</th>
+                    <th class="{{ th_class }}">Breed(s)</th>
                     <th class="{{ th_class }}">Age</th>
                     <th class="{{ th_class }}">Sex</th>
                     <th class="{{ th_class }}">Actions</th>
@@ -27,7 +27,7 @@
                 <tr class="group {% if loop.index is even %}bg-gray-700{% endif %}">
                     <td class="{{ td_class }}">{{ pet.name }}</td>
                     <td class="{{ td_class }}">{{ pet.type.name }}</td>
-                    <td class="{{ td_class }}">{{ pet.breed.name }}</td>
+                    <td class="{{ td_class }}">{{ pet.breedNames|join(', ') }}</td>
                     <td class="{{ td_class }}">{{ pet.age|format_age(short: true) }}</td>
                     <td class="{{ td_class }}">{{ pet.sex.value }}</td>
                     <td class="{{ td_class }}">
