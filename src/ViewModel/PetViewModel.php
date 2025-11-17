@@ -14,6 +14,9 @@ final readonly class PetViewModel
         public PetType $type,
         public array $breedNames,
         public Sex $sex,
+        public ?\DateTimeImmutable $dateOfBirth,
+        public ?float $approximateAge,
+        public ?\DateTimeImmutable $dateOfAgeApproximation,
         public ?float $age,
     ) {
     }
@@ -26,6 +29,9 @@ final readonly class PetViewModel
             type: $pet->getType(),
             breedNames: array_map(fn ($breed) => $breed->getName(), $pet->getBreeds()->toArray()),
             sex: $pet->getSex(),
+            dateOfBirth: $pet->getDateOfBirth(),
+            approximateAge: $pet->getApproximateAge(),
+            dateOfAgeApproximation: $pet->getDateOfAgeApproximation(),
             age: $pet->getAge($currentDate),
         );
     }

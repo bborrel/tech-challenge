@@ -52,7 +52,7 @@ final class PetController extends AbstractController
     public function show(Pet $pet): Response
     {
         return $this->render('pet/show.html.twig', [
-            'pet' => $pet,
+            'pet' => PetViewModel::fromEntity($pet),
         ]);
     }
 

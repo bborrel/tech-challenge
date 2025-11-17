@@ -1,42 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pet{% endblock %}
+{% set tr_class = 'hover:bg-gray-700 transition-colors' %}
+{% set th_class = 'px-6 py-4 text-left text-sm font-medium text-gray-200 bg-gray-700 whitespace-nowrap' %}
+{% set td_class = 'px-6 py-4 text-sm text-gray-100' %}
+
+{% block title %}{{ pet.name }}{% endblock %}
 
 {% block body %}
-    <h1>Pet</h1>
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-100 mb-6">{{ pet.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ pet.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ pet.name }}</td>
-            </tr>
-            <tr>
-                <th>Date_of_birth</th>
-                <td>{{ pet.dateOfBirth ? pet.dateOfBirth|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Approximate_age</th>
-                <td>{{ pet.approximateAge }}</td>
-            </tr>
-            <tr>
-                <th>Date_of_age_approximation</th>
-                <td>{{ pet.dateOfAgeApproximation ? pet.dateOfAgeApproximation|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Sex</th>
-                <td>{{ pet.sex }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <table class="w-full">
+                <tbody class="divide-y divide-gray-700">
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">ID</th>
+                        <td class="{{ td_class }}">{{ pet.id }}</td>
+                    </tr>
 
-    <a href="{{ path('app_pet_index') }}">back to list</a>
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Name</th>
+                        <td class="{{ td_class }}">{{ pet.name }}</td>
+                    </tr>
 
-    <a href="{{ path('app_pet_edit', {'id': pet.id}) }}">edit</a>
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Type</th>
+                        <td class="{{ td_class }}">{{ pet.type.name }}</td>
+                    </tr>
 
-    {{ include('pet/_delete_form.html.twig') }}
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Breeds</th>
+                        <td class="{{ td_class }}">
+                            {% if pet.breedNames is not empty %}
+                                <div class="flex flex-wrap gap-2">
+                                    {% for breedName in pet.breedNames %}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200">
+                                            {{ breedName }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <span class="text-gray-500">None</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Sex</th>
+                        <td class="{{ td_class }}">{{ pet.sex.value }}</td>
+                    </tr>
+
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Date of Birth</th>
+                        <td class="{{ td_class }}">{% if pet.dateOfBirth %}{{ pet.dateOfBirth|date('F j, Y') }}{% endif %}</td>
+                    </tr>
+
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Approximate Age</th>
+                        <td class="{{ td_class }}">{% if pet.approximateAge %}{{ pet.approximateAge }} years (as of {{ pet.dateOfAgeApproximation|date('F j, Y') }}){% endif %}</td>
+                    </tr>
+
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Current Age</th>
+                        <td class="{{ td_class }}">{{ pet.age|format_age }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a href="{{ path('app_pet_index') }}" class="btn btn-secondary">
+                Back to list
+            </a>
+
+            <a href="{{ path('app_pet_edit', {'id': pet.id}) }}" class="btn btn-primary">
+                Edit
+            </a>
+
+            {{ include('pet/_delete_form.html.twig', { id: pet.id }) }}
+        </div>
+    </div>
 {% endblock %}
