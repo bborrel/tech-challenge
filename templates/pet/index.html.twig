@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% set th_class = 'bg-gray-700 sticky top-0 border-b border-gray-600 px-6 py-2 text-gray-200 font-bold tracking-wider uppercase text-xs' %}
+{% set td_class = 'px-6 py-3 group-hover:bg-gray-600 transition-colors' %}
+{% set btn_class = 'px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700' %}
+
 {% block title %}Pet index{% endblock %}
 
 {% block body %}
@@ -9,9 +13,6 @@
 
     <div class="overflow-x-auto bg-gray-800 rounded-lg shadow overflow-y-auto relative mt-4">
         <table class="border-collapse table-auto w-full whitespace-no-wrap bg-gray-800 table-striped relative">
-            {% set th_class = 'bg-gray-700 sticky top-0 border-b border-gray-600 px-6 py-2 text-gray-200 font-bold tracking-wider uppercase text-xs' %}
-            {% set td_class = 'border-dashed border-t border-gray-600 px-6 py-3 group-hover:bg-gray-600 transition-colors' %}
-            {% set btn_class = 'px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700' %}
             <thead>
                 <tr>
                     <th class="{{ th_class }}">Name</th>
