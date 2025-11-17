@@ -176,4 +176,15 @@ class Pet
 
         return null;
     }
+
+    public function isDangerous(): bool
+    {
+        foreach ($this->getBreeds() as $breed) {
+            if ($breed->isDangerous()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -64,6 +64,11 @@
                         <th class="{{ th_class }}">Current Age</th>
                         <td class="{{ td_class }}">{{ pet.age|format_age }}</td>
                     </tr>
+
+                    <tr class="{{ tr_class }}">
+                        <th class="{{ th_class }}">Dangerous?</th>
+                        <td class="{{ td_class }}">{{ pet.isDangerous ? 'Yes' : 'No' }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

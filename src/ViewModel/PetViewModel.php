@@ -18,6 +18,7 @@ final readonly class PetViewModel
         public ?float $approximateAge,
         public ?\DateTimeImmutable $dateOfAgeApproximation,
         public ?float $age,
+        public bool $isDangerous,
     ) {
     }
 
@@ -33,6 +34,7 @@ final readonly class PetViewModel
             approximateAge: $pet->getApproximateAge(),
             dateOfAgeApproximation: $pet->getDateOfAgeApproximation(),
             age: $pet->getAge($currentDate),
+            isDangerous: $pet->isDangerous(),
         );
     }
 }

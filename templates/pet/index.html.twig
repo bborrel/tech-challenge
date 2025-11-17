@@ -20,6 +20,7 @@
                     <th class="{{ th_class }}">Breed(s)</th>
                     <th class="{{ th_class }}">Age</th>
                     <th class="{{ th_class }}">Sex</th>
+                    <th class="{{ th_class }}">Dangerous?</th>
                     <th class="{{ th_class }}">Actions</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <td class="{{ td_class }}">{{ pet.breedNames|join(', ') }}</td>
                     <td class="{{ td_class }}">{{ pet.age|format_age(short: true) }}</td>
                     <td class="{{ td_class }}">{{ pet.sex.value }}</td>
+                    <td class="{{ td_class }}">{{ pet.isDangerous ? 'Yes' : 'No' }}</td>
                     <td class="{{ td_class }}">
                         <div class="flex flex-col md:flex-row gap-1 justify-left">
                             <a href="{{ path('app_pet_show', {'id': pet.id}) }}" class="{{ btn_class }}">Show</a>
