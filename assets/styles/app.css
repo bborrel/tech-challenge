@@ -1,2 +1,103 @@
 @import "tailwindcss";
 
+@layer components {
+    /* Form Labels */
+    .form-label {
+        @apply block text-sm font-medium text-gray-200 mb-2;
+    }
+    
+    /* Text Inputs & Textareas */
+    .form-input {
+        @apply w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 
+               placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 
+               focus:border-transparent transition-colors;
+    }
+    
+    .form-input:disabled {
+        @apply bg-gray-800 text-gray-500 cursor-not-allowed;
+    }
+    
+    .form-input.error {
+        @apply border-red-500 focus:ring-red-500;
+    }
+    
+    /* Select Dropdowns */
+    .form-select {
+        @apply w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-100
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+               transition-colors;
+    }
+    
+    .form-select:disabled {
+        @apply bg-gray-800 text-gray-500 cursor-not-allowed;
+    }
+    
+    /* Radio Buttons */
+    .form-radio {
+        @apply w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 
+               focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:ring-offset-gray-800
+               transition-colors cursor-pointer;
+    }
+    
+    .form-radio:disabled {
+        @apply cursor-not-allowed opacity-50;
+    }
+    
+    /* Radio Button Labels */
+    .form-radio-label {
+        @apply ml-2 text-sm text-gray-200 cursor-pointer;
+    }
+    
+    /* Radio Group Container */
+    .form-radio-group {
+        @apply flex gap-4;
+    }
+    
+    /* Checkboxes */
+    .form-checkbox {
+        @apply w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded
+               focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:ring-offset-gray-800
+               transition-colors cursor-pointer;
+    }
+    
+    .form-checkbox:disabled {
+        @apply cursor-not-allowed opacity-50;
+    }
+    
+    /* Checkbox Labels */
+    .form-checkbox-label {
+        @apply ml-2 text-sm text-gray-200 cursor-pointer;
+    }
+    
+    /* Error Messages */
+    .form-error {
+        @apply mt-1 text-sm text-red-400;
+    }
+    
+    /* Help Text */
+    .form-help {
+        @apply mt-1 text-sm text-gray-400;
+    }
+    
+    /* Buttons */
+    .btn {
+        @apply px-4 py-2 font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900;
+    }
+    
+    .btn-primary {
+        @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+    }
+    
+    .btn-secondary {
+        @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
+    }
+    
+    .btn-danger {
+        @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+    }
+    
+    .btn:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+}
+
