@@ -74,7 +74,7 @@ final class PetController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_pet_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_pet_delete', methods: ['POST'])]
     public function delete(Request $request, Pet $pet, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$pet->getId(), $request->getPayload()->getString('_token'))) {
