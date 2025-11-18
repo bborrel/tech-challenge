@@ -22,11 +22,10 @@ final class PetForm extends AbstractController
     use ComponentWithFormTrait;
     use DefaultActionTrait;
 
-    #[LiveProp(writable: true)]
+    #[LiveProp]
     public ?Pet $initialFormData = null;
 
-    // holds the selected type id; bound from the Type select via data-model
-    #[LiveProp(writable: true)]
+    #[LiveProp(writable: true, onUpdated: 'onTypeUpdated')]
     public ?int $typeId = null;
 
     public function __construct(
@@ -38,7 +37,6 @@ final class PetForm extends AbstractController
     {
         $pet = $this->initialFormData ?? new Pet();
 
-        // If typeId not explicitly set, infer from the current Pet
         if (null === $this->typeId && $pet->getType() instanceof PetTypeEntity) {
             $this->typeId = $pet->getType()->getId();
         }
@@ -55,6 +53,15 @@ final class PetForm extends AbstractController
         ]);
     }
 
+    public function onTypeUpdated(): void
+    {
+        if (null === $this->typeId) {
+            return;
+        }
+
+        $this->formValues['type'] = $this->typeId;
+    }
+
     #[LiveAction]
     public function save(EntityManagerInterface $entityManager): Response
     {
@@ -62,12 +69,12 @@ final class PetForm extends AbstractController
 
         /** @var Pet $pet */
         $pet = $this->getForm()->getData();
-        
+
         $entityManager->persist($pet);
         $entityManager->flush();
 
         $this->addFlash('success', sprintf('Pet "%s" has been saved!', $pet->getName()));
 
-        return $this->redirectToRoute('app_pet_index');
+        return $this->redirectToRoute('app_pet_show', ['id' => $pet->getId()]);
     }
 }

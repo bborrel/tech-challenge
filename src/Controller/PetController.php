@@ -28,23 +28,11 @@ final class PetController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_pet_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new', name: 'app_pet_new', methods: ['GET'])]
+    public function new(): Response
     {
-        $pet = new Pet();
-        $form = $this->createForm(PetType::class, $pet);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($pet);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_pet_index', [], Response::HTTP_SEE_OTHER);
-        }
-
         return $this->render('pet/new.html.twig', [
-            'pet' => $pet,
-            'form' => $form,
+            'pet' => null,
         ]);
     }
 
@@ -56,21 +44,11 @@ final class PetController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_pet_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Pet $pet, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/edit', name: 'app_pet_edit', methods: ['GET'])]
+    public function edit(Pet $pet): Response
     {
-        $form = $this->createForm(PetType::class, $pet);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_pet_index', [], Response::HTTP_SEE_OTHER);
-        }
-
         return $this->render('pet/edit.html.twig', [
             'pet' => $pet,
-            'form' => $form,
         ]);
     }
 

@@ -1,5 +1,11 @@
 <div {{ attributes }}>
-    {{ form_start(form, {attr: {class: 'space-y-6'}}) }}
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'submit->live#action:prevent',
+            'data-live-action-param': 'save',
+            'class': 'space-y-6'
+        }
+    }) }}
         <div class="space-y-6">
             {{ form_row(form.name, {
                 label_attr: {class: 'form-label'},
@@ -38,7 +44,7 @@
         </div>
 
         <div class="flex gap-3 pt-4">
-            <button type="submit" class="btn btn-primary" data-action="live#action" data-live-action-param="save">
+            <button type="submit" class="btn btn-primary">
                 Save
             </button>
         </div>
